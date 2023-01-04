@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello cube</title>
+    <!-- Script de cdn three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.148.0/three.min.js" integrity="sha512-TBsRPqWeusJljmmEij9waZ9K+qO2m6W1pu+5h5BjxvdizD1Izn1wwJyVYNFFFH42tIfedURxTsgtXF2Lah2PXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <script>
+        //hacer hello cube con three.js
+        //1. crear una escena
+        const scene = new THREE.Scene();
+            //añadir fondo de imagen
+            const loader = new THREE.TextureLoader();
+            const texture = loader.load('https://images.pexels.com/photos/1227511/pexels-photo-1227511.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            scene.background = texture;
+            
+        //2. crear una camara
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight);
+        //3. crear un render
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        //4. crear una geometria
+        const geometry = new THREE.BoxGeometry();
+        //5. crear un material
+        const material = new THREE.MeshBasicMaterial({
+            //añadir color
+            color: 0x00ff00,
+            //añadir wireframe
+            //wireframe: true
+        });
+        //6. crear una malla
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        camera.position.z = 5;
+        //7. renderizar
+        function animate(){
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        
+    </script>
+
+
+    
+</body>
+</html>
